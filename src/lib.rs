@@ -9,12 +9,12 @@ pub struct Trerr {
 
 impl Display for Trerr {
     fn fmt(&self, f: &mut Formatter) -> Result<(), fmt::Error> {
-        writeln!(f, "{}", self.err)?;
+        writeln!(f, "error: {}", self.err)?;
         let mut indent = String::new();
         let mut cause = &self.cause;
         while let Some(e) = cause {
             indent += " ";
-            writeln!(f, "{}{}", indent, e.err)?;
+            writeln!(f, "{}caused by: {}", indent, e.err)?;
             cause = &e.cause;
         }
         Ok(())
